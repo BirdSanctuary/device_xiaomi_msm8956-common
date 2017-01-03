@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2015 The CyanogenMod Project
+ * Copyright (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +45,6 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
 
     TextView mTextView;
 
-    private Switch mSwitch;
-
     private SwitchPreference mPickUpPreference;
     private SwitchPreference mHandwavePreference;
     private SwitchPreference mPocketPreference;
@@ -64,16 +63,13 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
 
         boolean dozeEnabled = Utils.isDozeEnabled(getActivity());
 
-        mPickUpPreference =
-                (SwitchPreference) findPreference(Utils.GESTURE_PICK_UP_KEY);
+        mPickUpPreference = (SwitchPreference) findPreference(Utils.GESTURE_PICK_UP_KEY);
         mPickUpPreference.setEnabled(dozeEnabled);
 
-        mHandwavePreference =
-                (SwitchPreference) findPreference(Utils.GESTURE_HAND_WAVE_KEY);
+        mHandwavePreference = (SwitchPreference) findPreference(Utils.GESTURE_HAND_WAVE_KEY);
         mHandwavePreference.setEnabled(dozeEnabled);
 
-        mPocketPreference =
-                (SwitchPreference) findPreference(Utils.GESTURE_POCKET_KEY);
+        mPocketPreference = (SwitchPreference) findPreference(Utils.GESTURE_POCKET_KEY);
         mPocketPreference.setEnabled(dozeEnabled);
     }
 
@@ -96,14 +92,14 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
                 R.string.switch_bar_on : R.string.switch_bar_off));
 
         View switchBar = view.findViewById(R.id.switch_bar);
-        mSwitch = (Switch) switchBar.findViewById(android.R.id.switch_widget);
-        mSwitch.setChecked(dozeEnabled);
-        mSwitch.setOnCheckedChangeListener(this);
+        Switch switchWidget = (Switch) switchBar.findViewById(android.R.id.switch_widget);
+        switchWidget.setChecked(dozeEnabled);
+        switchWidget.setOnCheckedChangeListener(this);
 
         switchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSwitch.setChecked(!mSwitch.isChecked());
+                switchWidget.setChecked(!switchWidget.isChecked());
             }
         });
     }
