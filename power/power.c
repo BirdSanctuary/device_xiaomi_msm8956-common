@@ -491,10 +491,23 @@ static int power_device_open(const hw_module_t* module, const char* name,
     return status;
 }
 
+ssize_t __attribute__ ((weak)) get_number_of_platform_modes(struct power_module *module) {
+   return 0;
+}
+
+int __attribute__ ((weak)) get_voter_list(struct power_module *module, size_t *voter) {
+   return 0;
+}
+
+int __attribute__ ((weak)) get_platform_low_power_stats(struct power_module *module,
+    power_state_platform_sleep_state_t *list) {
+    return 0;
+}
+
 struct power_module HAL_MODULE_INFO_SYM = {
     .common = {
         .tag = HARDWARE_MODULE_TAG,
-        .module_api_version = POWER_MODULE_API_VERSION_0_2,
+        .module_api_version = POWER_MODULE_API_VERSION_0_5,
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = POWER_HARDWARE_MODULE_ID,
         .name = "QCOM Power HAL",
@@ -505,4 +518,7 @@ struct power_module HAL_MODULE_INFO_SYM = {
     .init = power_init,
     .powerHint = power_hint,
     .setInteractive = set_interactive,
+    .get_number_of_platform_modes = get_number_of_platform_modes,
+    .get_platform_low_power_stats = get_platform_low_power_stats,
+    .get_voter_list = get_voter_list
 };
