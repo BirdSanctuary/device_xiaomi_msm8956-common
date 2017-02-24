@@ -320,6 +320,14 @@ on post-fs-data
     rm /data/system/perfd/default_values
     start perfd
 
+    # Sustained power and vr mode
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chmod 0660 /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chmod 0660 /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chown system system /sys/class/devfreq/gpubw/min_freq
+    chmod 0660 /sys/class/devfreq/gpubw/min_freq
+
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
 

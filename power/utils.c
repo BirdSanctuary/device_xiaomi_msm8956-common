@@ -228,6 +228,7 @@ void interaction(int duration, int num_args, int opt_list[])
 
 int interaction_with_handle(int lock_handle, int duration, int num_args, int opt_list[])
 {
+#ifdef INTERACTION_BOOST
     if (duration < 0 || num_args < 1 || opt_list[0] == NULL)
         return 0;
 
@@ -239,6 +240,8 @@ int interaction_with_handle(int lock_handle, int duration, int num_args, int opt
         }
     }
     return lock_handle;
+#endif
+    return 0;
 }
 
 //this is interaction_with_handle using perf_hint instead of
