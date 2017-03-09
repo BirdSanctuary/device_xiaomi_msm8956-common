@@ -40,6 +40,7 @@
 
 #include "QCameraMuxer.h"
 #include "QCamera2HWI.h"
+#include "QCamera3HWI.h"
 #include "QCameraPostProc.h"
 
 #include <sys/stat.h>
@@ -223,13 +224,12 @@ int QCameraMuxer::get_camera_info(int camera_id, struct camera_info *info)
 {
     int rc = NO_ERROR;
     CDBG_HIGH("%s: E", __func__);
-    cam_sync_type_t type;
     if ((camera_id < 0) || (camera_id >= gMuxer->getNumberOfCameras())) {
         ALOGE("%s : Camera id %d not found!", __func__, camera_id);
         return -ENODEV;
     }
     if(info) {
-        rc = gMuxer->getCameraInfo(camera_id, info, &type);
+        rc = gMuxer->getCameraInfo(camera_id, info);
     }
     CDBG_HIGH("%s: X, rc: %d", __func__, rc);
     return rc;
@@ -1905,8 +1905,7 @@ int QCameraMuxer::getNumberOfCameras()
  *              NO_ERROR  -- success
  *              none-zero failure code
  *==========================================================================*/
-int QCameraMuxer::getCameraInfo(int camera_id,
-        struct camera_info *info, cam_sync_type_t *p_cam_type)
+int QCameraMuxer::getCameraInfo(int camera_id, struct camera_info *info)
 {
     int rc = NO_ERROR;
     CDBG_HIGH("%s: E, camera_id = %d", __func__, camera_id);
@@ -1926,7 +1925,10 @@ int QCameraMuxer::getCameraInfo(int camera_id,
     uint32_t phy_id =
             m_pLogicalCamera[camera_id].pId[
             m_pLogicalCamera[camera_id].nPrimaryPhyCamIndex];
-    rc = QCamera2HardwareInterface::getCapabilities(phy_id, info, &cam_type);
+    // Call HAL3 getCamInfo to get the flash light info through static metatdata
+    // regardless of HAL version
+    rc = QCamera3HardwareInterface::getCamInfo(phy_id, info);
+    info->device_version = CAMERA_DEVICE_API_VERSION_1_0; // Hardcode the HAL to HAL1
     CDBG_HIGH("%s: X", __func__);
     return rc;
 }
