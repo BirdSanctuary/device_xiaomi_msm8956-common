@@ -2,11 +2,11 @@
  {
    "repository": "TheMuppets/proprietary_vendor_xiaomi",
    "target_path": "vendor/xiaomi",
-   "target_branch": "cm-14.1"
+   "branch": "cm-14.1"
  },
  {
    "repository": "Citrus-Seeds/kernel_xiaomi_msm8956",
    "target_path": "kernel/xiaomi/msm8956",
-   "target_branch": "n-8952"
+   "branch": "n-8952"
  }
 ]
