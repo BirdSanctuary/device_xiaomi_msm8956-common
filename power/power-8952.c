@@ -53,6 +53,9 @@
 #define GPU_MAX_FREQ_PATH "/sys/class/kgsl/kgsl-3d0/devfreq/max_freq"
 #define GPU_MIN_FREQ_PATH "/sys/class/kgsl/kgsl-3d0/devfreq/min_freq"
 
+#define USINSEC 1000000L
+#define NSINUS 1000L
+
 static int saved_interactive_mode = -1;
 static int display_hint_sent;
 static int video_encode_hint_sent;
@@ -61,6 +64,13 @@ static int vr_mode = 0;
 static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 static void process_video_encode_hint(void *metadata);
+
+static long long calc_timespan_us(struct timespec start, struct timespec end) {
+    long long diff_in_us = 0;
+    diff_in_us += (end.tv_sec - start.tv_sec) * USINSEC;
+    diff_in_us += (end.tv_nsec - start.tv_nsec) / NSINUS;
+    return diff_in_us;
+}
 
 int  power_hint_override(struct power_module *module, power_hint_t hint,
         void *data)
@@ -78,15 +88,93 @@ int  power_hint_override(struct power_module *module, power_hint_t hint,
         }
         case POWER_HINT_INTERACTION:
         {
-            int ret;
+            int duration_hint = 0;
+            static struct timespec previous_boost_timespec = {0, 0};
 
+            // If we are in sustained performance mode or VR mode, touch boost
+            // should be ignored.
             pthread_mutex_lock(&lock);
-            if (sustained_performance_mode || vr_mode)
-                ret = HINT_HANDLED;
-            else
-                ret = HINT_NONE;
+            if (sustained_performance_mode || vr_mode) {
+                pthread_mutex_unlock(&lock);
+                return HINT_HANDLED;
+            }
             pthread_mutex_unlock(&lock);
-            return ret;
+
+            // little core freq bump for 1.5s
+            int resources[] = {0x20C};
+            int duration = 1500;
+            static int handle_little = 0;
+
+            // big core freq bump for 500ms
+            int resources_big[] = {0x2312, 0x1F08};
+            int duration_big = 500;
+            static int handle_big = 0;
+
+            // sched_downmigrate lowered to 10 for 1s at most
+            // should be half of upmigrate
+            int resources_downmigrate[] = {0x4F00};
+            int duration_downmigrate = 1000;
+            static int handle_downmigrate = 0;
+
+            // sched_upmigrate lowered to at most 20 for 500ms
+            // set threshold based on elapsed time since last boost
+            int resources_upmigrate[] = {0x4E00};
+            int duration_upmigrate = 500;
+            static int handle_upmigrate = 0;
+
+            // set duration hint
+            if (data) {
+                duration_hint = *((int*)data);
+            }
+
+            struct timespec cur_boost_timespec;
+            clock_gettime(CLOCK_MONOTONIC, &cur_boost_timespec);
+            pthread_mutex_lock(&lock);
+            long long elapsed_time = calc_timespan_us(previous_boost_timespec, cur_boost_timespec);
+            if (elapsed_time > 750000)
+                elapsed_time = 750000;
+            // don't hint if it's been less than 250ms since last boost
+            // also detect if we're doing anything resembling a fling
+            // support additional boosting in case of flings
+            else if (elapsed_time < 250000 && duration_hint <= 750) {
+                pthread_mutex_unlock(&lock);
+                return HINT_HANDLED;
+            }
+
+            previous_boost_timespec = cur_boost_timespec;
+            pthread_mutex_unlock(&lock);
+
+            // 95: default upmigrate for phone
+            // 20: upmigrate for sporadic touch
+            // 750ms: a completely arbitrary threshold for last touch
+            int upmigrate_value = 95 - (int)(75. * ((elapsed_time*elapsed_time) / (750000.*750000.)));
+
+            // keep sched_upmigrate high when flinging
+            if (duration_hint >= 750)
+                upmigrate_value = 20;
+
+            resources_upmigrate[0] = resources_upmigrate[0] | upmigrate_value;
+            resources_downmigrate[0] = resources_downmigrate[0] | (upmigrate_value / 2);
+
+            // modify downmigrate duration based on interaction data hint
+            // 1000 <= duration_downmigrate <= 5000
+            // extend little core freq bump past downmigrate to soften downmigrates
+            if (duration_hint > 1000) {
+                if (duration_hint < 5000) {
+                    duration_downmigrate = duration_hint;
+                    duration = duration_hint + 750;
+                } else {
+                    duration_downmigrate = 5000;
+                    duration = 5750;
+                }
+            }
+
+            handle_little = interaction_with_handle(handle_little,duration, sizeof(resources)/sizeof(resources[0]), resources);
+            handle_big = interaction_with_handle(handle_big, duration_big, sizeof(resources_big)/sizeof(resources_big[0]), resources_big);
+            handle_downmigrate = interaction_with_handle(handle_downmigrate, duration_downmigrate, sizeof(resources_downmigrate)/sizeof(resources_downmigrate[0]), resources_downmigrate);
+            handle_upmigrate = interaction_with_handle(handle_upmigrate, duration_upmigrate, sizeof(resources_upmigrate)/sizeof(resources_upmigrate[0]), resources_upmigrate);
+
+            return HINT_HANDLED;
         }
         case POWER_HINT_SUSTAINED_PERFORMANCE:
         {
