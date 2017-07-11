@@ -100,8 +100,8 @@ int  power_hint_override(struct power_module *module, power_hint_t hint,
             }
             pthread_mutex_unlock(&lock);
 
-            // little core freq bump for 1.5s
-            int resources[] = {0x20C};
+            // little core freq bump for 1.5s, sched_boost on
+            int resources[] = {0x20C, 0x1E01};
             int duration = 1500;
             static int handle_little = 0;
 
