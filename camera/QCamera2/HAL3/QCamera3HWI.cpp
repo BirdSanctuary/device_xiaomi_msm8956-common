@@ -42,6 +42,7 @@
 #include <utils/Errors.h>
 #include <ui/Fence.h>
 #include <gralloc_priv.h>
+#include "util/QCameraFlash.h"
 #include "QCamera3HWI.h"
 #include "QCamera3Mem.h"
 #include "QCamera3Channel.h"
@@ -599,11 +600,21 @@ int QCamera3HardwareInterface::openCamera()
         ALOGE("Failure: Camera already opened");
         return ALREADY_EXISTS;
     }
+
+    rc = QCameraFlash::getInstance().reserveFlashForCamera(mCameraId);
+    if (rc < 0) {
+        ALOGE("%s: Failed to reserve flash for camera id: %d",
+                __func__,
+                mCameraId);
+        return UNKNOWN_ERROR;
+    }
+
     rc = camera_open((uint8_t)mCameraId, &mCameraHandle);
     if (rc) {
         ALOGE("camera_open failed. rc = %d, mCameraHandle = %p", rc, mCameraHandle);
         return rc;
     }
+
     if (!mCameraHandle) {
         ALOGE("camera_open failed. mCameraHandle = %p", mCameraHandle);
         return -ENODEV;
@@ -702,6 +713,11 @@ int QCamera3HardwareInterface::closeCamera()
     if (mExifParams.debug_params) {
         free(mExifParams.debug_params);
         mExifParams.debug_params = NULL;
+    }
+    if (QCameraFlash::getInstance().releaseFlashFromCamera(mCameraId) != 0) {
+        CDBG("%s: Failed to release flash for camera id: %d",
+                __func__,
+                mCameraId);
     }
 
     return rc;
@@ -6437,6 +6453,11 @@ int QCamera3HardwareInterface::getCamInfo(uint32_t cameraId,
     info->orientation = (int)gCamCapability[cameraId]->sensor_mount_angle;
     info->device_version = CAMERA_DEVICE_API_VERSION_3_2;
     info->static_camera_characteristics = gStaticMetadata[cameraId];
+
+    //assume both cameras cannot operate independently.
+    info->resource_cost = 100;
+    info->conflicting_devices = NULL;
+    info->conflicting_devices_length = 0;
 
     pthread_mutex_unlock(&gCamLock);
 
