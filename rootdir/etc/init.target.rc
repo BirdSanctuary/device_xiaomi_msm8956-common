@@ -92,6 +92,9 @@ on boot
     start rmt_storage
     write /proc/sys/kernel/sched_boost 1
 
+    # set vibrator intensity to 50%
+    write /sys/class/timed_output/vibrator/vtg_level 1777
+
 service wcnss-service /system/bin/wcnss_service
     class main
     user system
