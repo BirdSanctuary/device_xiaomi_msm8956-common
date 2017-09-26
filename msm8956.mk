@@ -194,10 +194,6 @@ PRODUCT_PACKAGES += \
     sap.conf \
     xtwifi.conf
 
-# HIDL
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
-
 # HWUI
 PRODUCT_PROPERT_OVERRIDES += \
 ro.hwui.texture_cache_size=72 \
