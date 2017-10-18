@@ -22,7 +22,8 @@ DEVICE_PACKAGE_OVERLAYS += \
 # Get non-open-source specific aspects
 $(call inherit-product-if-exists, vendor/xiaomi/msm8956-common/msm8956-common-vendor.mk)
 
-PRODUCT_PROPERT_OVERRIDES += ro.cardinal.maintainer="Ashish T | Adarsh M.R"
+PRODUCT_PROPERTY_OVERRIDES += ro.cardinal.maintainer="Ashish T | Adarsh M.R"
+
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
@@ -190,7 +191,7 @@ PRODUCT_PACKAGES += \
     xtwifi.conf
 
 # HWUI
-PRODUCT_PROPERT_OVERRIDES += \
+PRODUCT_PROPERTY_OVERRIDES += \
 ro.hwui.texture_cache_size=72 \
 ro.hwui.layer_cache_size=48 \
 ro.hwui.r_buffer_cache_size=8 \
