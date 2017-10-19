@@ -69,6 +69,9 @@ persist.hwc.downscale_threshold=1.15
 ro.opengles.version=196610
 ro.sf.lcd_density=480
 
+# Maintainer
+ro.cardinal.maintainer=Aashish T | Adarsh M.R
+
 # Media
 media.msm8956hw=1
 mm.enable.smoothstreaming=true
