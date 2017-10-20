@@ -17,30 +17,27 @@
         android:label="@string/device_settings_app_name"
         android:persistent="true">
 
-        <receiver android:name="com.cyanogenmod.settings.doze.BootCompletedReceiver">
+        <receiver android:name=".BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.cyanogenmod.settings.doze.DozeService"
+        <service android:name=".DozeService"
                  android:permission="XiaomiDozeService">
         </service>
 
         <activity
             android:name=".DozeSettings"
             android:label="@string/ambient_display_title"
-            android:theme="@style/DozeSettings">
+            android:theme="@style/Theme.Main">
             <intent-filter>
             <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
             </intent-filter>
             <meta-data
                 android:name="com.android.settings.category"
                 android:value="com.android.settings.category.device" />
-            <meta-data
-                android:name="com.android.settings.icon"
-                android:resource="@drawable/ic_settings_doze" />
         </activity>
 
     </application>
