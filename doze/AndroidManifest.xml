@@ -29,7 +29,7 @@
         </service>
 
         <activity
-            android:name=".DozeSettings"
+            android:name=".DozeSettingsActivity"
             android:label="@string/ambient_display_title"
             android:theme="@style/Theme.Main">
             <intent-filter>
