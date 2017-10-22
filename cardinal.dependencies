@@ -3,9 +3,15 @@
    "repository": "kernel_xiaomi_msm8956",
    "target_path": "kernel/xiaomi/msm8956"
  },
-
- {
+ 
+  {
    "repository": "proprietary_vendor_xiaomi",
    "target_path": "vendor/xiaomi"
- }
+  },
+
+  {
+   "repository": "LineageOS/packages_resources_devicesettings",
+   "target_path": "packages/resources/devicesettings",
+   "branch": " lineage-15.0"
+  }
 ]
