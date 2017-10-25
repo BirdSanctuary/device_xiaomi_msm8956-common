@@ -120,10 +120,6 @@ WITH_DEXPREOPT := true
 WITH_DEXPREOPT_DEBUG_INFO := false
 USE_DEX2OAT_DEBUG := false
 DONT_DEXPREOPT_PREBUILTS := true
-ifneq ($(TARGET_BUILD_VARIANT),user)
-# Retain classes.dex in APK's for non-user builds
-DEX_PREOPT_DEFAULT := nostripping
-endif
 endif
 endif
 endif
