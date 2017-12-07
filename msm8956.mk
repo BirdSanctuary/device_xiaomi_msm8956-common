@@ -201,6 +201,11 @@ PRODUCT_PACKAGES += \
     android.hardware.health@1.0 \
     chargeonlymode
 
+# HIDL
+PRODUCT_PACKAGES += \
+    android.hidl.base@1.0 \
+    android.hidl.manager@1.0-java
+
 # HWUI
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.texture_cache_size=96 \
