@@ -318,6 +318,7 @@ on post-fs-data
     # Create PERFD deamon related dirs
     mkdir /data/system/perfd 2770 root system
     rm /data/system/perfd/default_values
+    start perfd
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
