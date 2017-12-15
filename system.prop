@@ -44,13 +44,20 @@ persist.dpm.feature=5
 persist.dpm.nsrm.bkg.evt=3955
 
 # Dex2oat threads for faster app installation
-ro.sys.fw.dex2oat_thread_count=4
+# Use all Cores/Threads of our CPU
+ro.sys.fw.dex2oat_thread_count=6
+dalvik.vm.dex2oat-threads=6
+dalvik.vm.image-dex2oat-threads=6
+debug.generate-debug-info=false
 
 # Data modules
 ro.use_data_netmgrd=true
 persist.data.netmgrd.qos.enable=true
 persist.data.mode=concurrent
 persist.data.iwlan.enable=true
+
+# Delayed restart
+ro.am.reschedule_service=true
 
 # fling_velocity
 ro.min.fling_velocity=160
