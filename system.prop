@@ -52,6 +52,10 @@ persist.data.netmgrd.qos.enable=true
 persist.data.mode=concurrent
 persist.data.iwlan.enable=true
 
+# fling_velocity
+ro.min.fling_velocity=160
+ro.max.fling_velocity=20000
+
 # FRP
 ro.frp.pst=/dev/block/bootdevice/by-name/config
 
