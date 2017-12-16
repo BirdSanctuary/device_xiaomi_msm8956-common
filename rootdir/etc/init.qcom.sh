@@ -127,9 +127,3 @@ if [ "$zram_enable" == "true" ]; then
     mkswap /dev/block/zram0
     swapon /dev/block/zram0 -p 32758
 fi
-
-# thermal engine
-enable=`getprop persist.thermal_engine.enable`
-if [ "$enable" == "true" ]; then
-    start thermal-engine
-fi
