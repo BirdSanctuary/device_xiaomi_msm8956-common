@@ -43,12 +43,13 @@ persist.cne.feature=1
 persist.dpm.feature=5
 persist.dpm.nsrm.bkg.evt=3955
 
-# Dex2oat threads for faster app installation
-# Use all Cores/Threads of our CPU
-ro.sys.fw.dex2oat_thread_count=6
-dalvik.vm.dex2oat-threads=6
-dalvik.vm.image-dex2oat-threads=6
-debug.generate-debug-info=false
+# Dex2oat optimisation
+# use 6 cores during bootup dex compilation
+dalvik.vm.boot-dex2oat-threads=6
+# use 4 cores durning normal dex compilation (app installations)
+dalvik.vm.dex2oat-threads=4
+# use 4 cores during boot image dex compilation
+dalvik.vm.image-dex2oat-threads=4
 
 # Data modules
 ro.use_data_netmgrd=true
