@@ -318,7 +318,7 @@ on post-fs-data
     # Create PERFD deamon related dirs
     mkdir /data/system/perfd 2770 root system
     rm /data/system/perfd/default_values
-    start perfd
+    # start perfd
 
     # Sustained power and vr mode
     chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
