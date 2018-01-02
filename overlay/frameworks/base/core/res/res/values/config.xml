@@ -392,7 +392,4 @@
          config to 19. -->
     <integer name="config_deviceHardwareKeys">19</integer>
 
-    <!-- Boolean indicating whether we want button brightness support --> 
-    <bool name="config_button_brightness_support">true</bool>
-
 </resources>
