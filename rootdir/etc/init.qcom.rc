@@ -173,7 +173,7 @@ on boot
 
     # Vibrator intensity
     write /sys/class/timed_output/vibrator/vtg_level 1800
-  
+
 on post-fs
     start qseecomd
 
@@ -340,26 +340,31 @@ service cnd /system/bin/cnd
     class main
     socket cnd stream 660 root inet
     writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:cnd:s0
 
 service dpmd /system/bin/dpmd
     class late_start
     socket dpmd stream 660 root system
     group system readproc
+    seclabel u:r:dpmd:s0
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
+    seclabel u:r:irsc_util:s0
 
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
     writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:rmt_storage:s0
 
 service tftp_server /system/bin/tftp_server
     class main
     user root
     writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:rfs_access:s0
 
 on property:wc_transport.start_hci=true
     start start_hci_filter
@@ -371,6 +376,7 @@ service start_hci_filter /system/bin/wcnss_filter
     class late_start
     user bluetooth
     group bluetooth oem_2901
+    seclabel u:r:wcnss_filter:s0
     disabled
 
 on property:wc_transport.start_root=true
@@ -383,6 +389,7 @@ service hci_filter_root /system/bin/wcnss_filter
     class late_start
     user bluetooth
     group bluetooth diag system
+    seclabel u:r:wcnss_filter:s0
     disabled
 
 service config_bt_addr /system/bin/btnvtool -O
@@ -390,11 +397,13 @@ service config_bt_addr /system/bin/btnvtool -O
     user bluetooth
     group bluetooth radio
     oneshot
+    seclabel u:r:btnvtool:s0
 
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
     user root
     oneshot
+    seclabel u:r:qti_init_shell:s0
 
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     class late_start
@@ -402,6 +411,7 @@ service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     group bluetooth net_bt_admin
     disabled
     oneshot
+    seclabel u:r:qti_init_shell::s0
 
 on property:bluetooth.hciattach=true
     start hciattach
@@ -413,6 +423,7 @@ service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start
     user root
     oneshot
+    seclabel u:r:qti_init_shell:s0
 
 # FM
 on property:hw.fm.init=0
@@ -427,28 +438,26 @@ service qmuxd /system/bin/qmuxd
     user root
     group radio audio bluetooth gps nfc oem_2901
     writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:qmuxd:s0
 
 service netmgrd /system/bin/netmgrd
     class main
     writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:netmgrd:s0
 
 service ipacm /system/vendor/bin/ipacm
     class main
     user radio
     group radio inet
     writepid /dev/cpuset/system-background/tasks
-
-service qti /system/vendor/bin/qti
-    class main
-    user radio
-    group radio net_raw oem_2901 usb net_admin
-    writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:ipacm:s0
 
 service sensors /system/bin/sensors.qcom
     class late_start
     user root
     group root
     disabled
+    seclabel u:r:sensors:s0
 
 on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
@@ -482,6 +491,7 @@ service loc_launcher /system/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
     class late_start
     group gps inet net_raw oem_2901 net_admin wifi
+    seclabel u:r:location:s0
 
 on property:crypto.driver.load=1
     insmod /system/lib/modules/qce.ko
@@ -508,6 +518,7 @@ service msm_irqbal_lb /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqba
     group root
     disabled
     writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:msm_irqbalanced:s0
 
 on property:vold.decrypt=trigger_restart_min_framework
     start time_daemon
@@ -518,12 +529,14 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics
     writepid /dev/cpuset/camera-daemon/tasks
+    seclabel u:r:mm-qcamerad:s0
 
 service qseecomd /system/bin/qseecomd
    class core
    user root
    group root
    writepid /dev/cpuset/system-background/tasks
+   seclabel u:r:tee:s0
 
 service thermal-engine /system/vendor/bin/thermal-engine
    class main
@@ -533,23 +546,21 @@ service thermal-engine /system/vendor/bin/thermal-engine
    socket thermal-recv-passive-client stream 0666 system system
    group root
    writepid /dev/cpuset/system-background/tasks
+   seclabel u:r:thermal-engine:s0
 
 service time_daemon /system/bin/time_daemon
    class late_start
    user root
    group root
    writepid /dev/cpuset/system-background/tasks
-
-service audiod /system/bin/audiod
-   class late_start
-   user system
-   group system
+   seclabel u:r:time_daemon:s0
 
 service wcnss-service /system/bin/wcnss_service
     class late_start
     user system
     group system wifi radio
     oneshot
+    seclabel u:r:wcnss_service:s0
 
 service ppd /system/vendor/bin/mm-pp-daemon
     class late_start
@@ -557,6 +568,7 @@ service ppd /system/vendor/bin/mm-pp-daemon
     user system
     socket pps stream 0660 system system
     group system graphics
+    seclabel u:r:mm-pp-daemon:s0
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd
@@ -584,23 +596,27 @@ service adsprpcd /system/bin/adsprpcd
     class main
     user media
     group media
+    seclabel u:r:adsprpcd:s0
 
 service hvdcp_opti /system/bin/hvdcp_opti
     class main
     user root
     group root
+    seclabel u:r:hvdcp:s0
 
 service qseeproxydaemon /system/vendor/bin/qseeproxydaemon
     class late_start
     user system
     group system
     writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:qseeproxy:s0
 
 service per_mgr /system/bin/pm-service
     class core
     user system
     group system net_raw
     writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:per_mgr:s0
 
 service per_proxy /system/bin/pm-proxy
     class core
@@ -608,6 +624,7 @@ service per_proxy /system/bin/pm-proxy
     group system
     disabled
     writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:per_mgr:s0
 
 on property:init.svc.per_mgr=running
     start per_proxy
@@ -620,6 +637,7 @@ service imsqmidaemon /system/bin/imsqmidaemon
     user system
     socket ims_qmid stream 0660 system radio
     group radio log diag
+    seclabel u:r:ims:s0
 
 service imsdatadaemon /system/bin/imsdatadaemon
     class main
@@ -627,6 +645,7 @@ service imsdatadaemon /system/bin/imsdatadaemon
     socket ims_datad stream 0660 system radio
     group system wifi radio inet log diag
     disabled
+    seclabel u:r:ims:s0
 
 on property:sys.ims.QMI_DAEMON_STATUS=1
     start imsdatadaemon
@@ -637,12 +656,14 @@ service ims_rtp_daemon /system/bin/ims_rtp_daemon
     socket ims_rtpd stream 0660 system radio
     group radio diag inet log
     disabled
+    seclabel u:r:hal_imsrtp:s0
 
 service imscmservice /system/bin/imscmservice
     class main
     user system
     group radio diag inet log
     disabled
+    seclabel u:r:ims:s0
 
 on property:sys.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
