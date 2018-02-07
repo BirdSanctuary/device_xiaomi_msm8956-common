@@ -198,7 +198,8 @@ PRODUCT_PACKAGES += \
     android.hardware.health@1.0-impl \
     android.hardware.health@1.0-convert \
     android.hardware.health@1.0-service \
-    android.hardware.health@1.0
+    android.hardware.health@1.0 \
+    chargeonlymode
 
 # HWUI
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -288,6 +289,7 @@ PRODUCT_PACKAGES += \
     init.qcom.power.rc \
     init.qcom.usb.rc \
     ueventd.qcom.rc
+
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \
