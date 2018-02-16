@@ -1,1 +1,5 @@
 allow init debugfs:file write;
+allow init hwservicemanager:binder { call transfer };
+allow init servicemanager:binder { call transfer };
+allow init tee_device:chr_file { ioctl write };
+allow init uhid_device:chr_file { ioctl write };

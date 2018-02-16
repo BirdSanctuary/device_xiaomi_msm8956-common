@@ -399,13 +399,13 @@ service config_bt_addr /system/bin/btnvtool -O
     oneshot
     seclabel u:r:btnvtool:s0
 
-service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
+service config_bluetooth /vendor/bin/sh /vendor/bin/init.qcom.bt.sh "onboot"
     class core
     user root
     oneshot
     seclabel u:r:qti_init_shell:s0
 
-service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
+service hciattach /vendor/bin/sh /vendor/bin/init.qcom.bt.sh
     class late_start
     user bluetooth
     group bluetooth net_bt_admin
@@ -419,7 +419,7 @@ on property:bluetooth.hciattach=true
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
-service qcom-sh /system/bin/sh /init.qcom.sh
+service qcom-sh /vendor/bin/sh /vendor/bin/init.qcom.sh
     class late_start
     user root
     oneshot
