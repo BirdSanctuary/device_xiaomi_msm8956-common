@@ -33,6 +33,9 @@ ro.btconfig.chip=WCN3680
 ro.qualcomm.bt.hci_transport=smd
 persist.bt.enableAptXHD=true
 
+# Enable B-service aging propagation on memory pressure.
+ro.vendor.qti.sys.fw.bservice_enable=true
+
 # Camera
 media.camera.ts.monotonic=1
 persist.camera.HAL3.enabled=1
