@@ -33,6 +33,9 @@ ro.btconfig.dev=/dev/smd3
 ro.btconfig.vendor=qcom
 ro.btconfig.chip=WCN3680
 
+# Enable B-service aging propagation on memory pressure.
+ro.vendor.qti.sys.fw.bservice_enable=true
+
 # Camera
 media.camera.ts.monotonic=1
 persist.camera.HAL3.enabled=1
@@ -56,7 +59,7 @@ persist.data.netmgrd.qos.enable=true
 persist.data.mode=concurrent
 persist.data.iwlan.enable=true
 
-# Delayed restart
+# Flag to reschedule the services during app launch.
 ro.vendor.qti.am.reschedule_service=true
 
 # fling_velocity
