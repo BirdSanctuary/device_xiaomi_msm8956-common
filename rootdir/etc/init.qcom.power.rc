@@ -141,10 +141,6 @@ on charger
     # Enable thermal
     write /sys/module/msm_thermal/core_control/enabled 1
 
-    # Set perfd properties
-    rm /data/system/perfd/default_values
-    start perfd
-
 on class_start:late_start
     trigger enable-low-power
 
@@ -153,11 +149,3 @@ on property:init.svc.recovery=running
 
 on property:dev.bootcomplete=1
     setprop sys.io.scheduler "bfq"
-
-service perfd /system/vendor/bin/perfd
-    class main
-    user root
-    group root readproc
-    disabled
-    socket perfd seqpacket 0666 root system
-    writepid /dev/cpuset/system-background/tasks
