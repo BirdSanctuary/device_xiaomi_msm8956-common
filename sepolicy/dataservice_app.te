@@ -1,0 +1,2 @@
+allow dataservice_app sysfs_pronto:dir rw_dir_perms;
+allow dataservice_app sysfs_pronto:file rw_file_perms;
