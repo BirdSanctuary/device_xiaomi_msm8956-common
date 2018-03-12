@@ -1,1 +1,7 @@
 allow radio system_app_data_file:dir getattr;
+
+allow radio sysfs_subsys:dir rw_dir_perms;
+allow radio sysfs_subsys:file rw_file_perms;
+
+allow radio sysfs_pronto:dir rw_dir_perms;
+allow radio sysfs_pronto:file rw_file_perms;
