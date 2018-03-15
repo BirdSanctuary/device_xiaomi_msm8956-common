@@ -445,6 +445,7 @@ service qmuxd /system/bin/qmuxd
 
 service netmgrd /system/bin/netmgrd
     class main
+    group root wifi wakelock radio inet oem_2901
     writepid /dev/cpuset/system-background/tasks
     seclabel u:r:netmgrd:s0
 
