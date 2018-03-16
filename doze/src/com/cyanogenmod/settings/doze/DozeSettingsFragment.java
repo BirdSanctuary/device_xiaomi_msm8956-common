@@ -43,7 +43,7 @@ import android.widget.TextView;
 public class DozeSettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener,
         CompoundButton.OnCheckedChangeListener {
 
-    TextView mTextView;
+    private TextView mTextView;
 
     private SwitchPreference mPickUpPreference;
     private SwitchPreference mHandwavePreference;
@@ -59,18 +59,22 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         SharedPreferences prefs = getActivity().getSharedPreferences("doze_settings",
                 Activity.MODE_PRIVATE);
         if (savedInstanceState == null && !prefs.getBoolean("first_help_shown", false)) {
+            showHelp();
         }
 
         boolean dozeEnabled = Utils.isDozeEnabled(getActivity());
 
         mPickUpPreference = (SwitchPreference) findPreference(Utils.GESTURE_PICK_UP_KEY);
         mPickUpPreference.setEnabled(dozeEnabled);
+        mPickUpPreference.setOnPreferenceChangeListener(this);
 
         mHandwavePreference = (SwitchPreference) findPreference(Utils.GESTURE_HAND_WAVE_KEY);
         mHandwavePreference.setEnabled(dozeEnabled);
+        mHandwavePreference.setOnPreferenceChangeListener(this);
 
         mPocketPreference = (SwitchPreference) findPreference(Utils.GESTURE_POCKET_KEY);
         mPocketPreference.setEnabled(dozeEnabled);
+        mPocketPreference.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -107,6 +111,17 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        final String key = preference.getKey();
+        final boolean value = (Boolean) newValue;
+        if (Utils.GESTURE_PICK_UP_KEY.equals(key)) {
+            mPickUpPreference.setChecked(value);
+        } else if (Utils.GESTURE_HAND_WAVE_KEY.equals(key)) {
+            mHandwavePreference.setChecked(value);
+        } else if (Utils.GESTURE_POCKET_KEY.equals(key)) {
+            mPocketPreference.setChecked(value);
+        } else {
+            return false;
+        }
         Utils.checkDozeService(getActivity());
         return true;
     }
@@ -131,8 +146,8 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         }
         return false;
     }
- 
-    private static class HelpDialogFragment extends DialogFragment {
+
+    public static class HelpDialogFragment extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             return new AlertDialog.Builder(getActivity())

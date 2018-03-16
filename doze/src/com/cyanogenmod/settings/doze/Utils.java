@@ -64,7 +64,7 @@ public final class Utils {
 
     protected static boolean enableDoze(boolean enable, Context context) {
         return Settings.Secure.putInt(context.getContentResolver(),
-                              DOZE_ENABLED, enable ? 1 : 0);
+                DOZE_ENABLED, enable ? 1 : 0);
     }
 
     protected static void launchDozePulse(Context context) {
