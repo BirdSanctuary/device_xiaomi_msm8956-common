@@ -13,6 +13,9 @@
 # flashlight
 /sys/devices/soc.0/qpnp-flash-led-23/leds/flashlight/brightness       u:object_r:sysfs_flashlight:s0
 
+# Fingerprint
+/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.0-service-custom u:object_r:hal_fingerprint_default_exec:s0
+
 # Legacy
 /system/bin/cnd                                                       u:object_r:cnd_exec:s0
 /system/bin/irsc_util                                                 u:object_r:irsc_util_exec:s0
