@@ -329,6 +329,9 @@ on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
     swapon_all fstab.qcom
 
+    # Start post boot script
+    start qcom-post-boot
+
 on property:vold.decrypt=trigger_restart_framework
     start wcnss-service
     start config_bt_addr
@@ -420,7 +423,12 @@ service qcom-sh /vendor/bin/sh /vendor/bin/init.qcom.sh
     class late_start
     user root
     oneshot
-    seclabel u:r:qti_init_shell:s0
+
+service qcom-post-boot /vendor/bin/sh /vendor/bin/init.qcom.post_boot.sh
+    class late_start
+    user root
+    disabled
+    oneshot
 
 # FM
 on property:hw.fm.init=0

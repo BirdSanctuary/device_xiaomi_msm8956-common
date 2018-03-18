@@ -116,6 +116,7 @@ on property:sys.boot_completed=1
     write /proc/sys/kernel/sched_enable_thread_grouping 1
 
     # Setup adaptive LMK
+    chmod 0660 /sys/module/lowmemorykiller/parameters/minfree
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
 
