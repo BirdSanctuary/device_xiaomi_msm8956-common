@@ -341,6 +341,23 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service
 
+# TextClassifier smart selection model files
+PRODUCT_PACKAGES += \
+    textclassifier.smartselection.bundle1 \
+    textclassifier.smartselection.ar.model \
+    textclassifier.smartselection.de.model \
+    textclassifier.smartselection.en.model \
+    textclassifier.smartselection.es.model \
+    textclassifier.smartselection.fr.model \
+    textclassifier.smartselection.it.model \
+    textclassifier.smartselection.nl.model \
+    textclassifier.smartselection.pl.model \
+    textclassifier.smartselection.pt.model \
+    textclassifier.smartselection.ru.model \
+    textclassifier.smartselection.tr.model \
+    textclassifier.smartselection.zh.model \
+    textclassifier.smartselection.zh-Hant.model
+
 # WCNSS
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
