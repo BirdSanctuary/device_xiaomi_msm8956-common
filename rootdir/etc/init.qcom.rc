@@ -346,12 +346,6 @@ service cnd /system/bin/cnd
     writepid /dev/cpuset/system-background/tasks
     seclabel u:r:cnd:s0
 
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
-    group system readproc
-    seclabel u:r:dpmd:s0
-
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
