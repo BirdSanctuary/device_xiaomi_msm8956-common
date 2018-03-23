@@ -33,6 +33,8 @@ vendor/lib64/libaptXHD_encoder.so|90f47f10af28b3ead143200cb4370b847c513127
 vendor/lib64/libaudcal.so
 -vendor/lib64/libaudioalsa.so
 vendor/lib64/libhwdaphal.so
+vendor/lib64/libldacBT_abr.so|26aa6bf2bac014ba80f09f835354093fbc209037
+vendor/lib64/libldacBT_enc.so|a5fb63c23a748ed3e1ddf39c6da353f3d2da88f1
 vendor/lib/libacdb-fts.so
 vendor/lib/libacdbloader.so
 vendor/lib/libacdbmapper.so
@@ -44,6 +46,8 @@ vendor/lib/libaptXHD_encoder.so|974c486e4ca03faa0713553d9dfe2995ac93e01c
 vendor/lib/libaudcal.so
 -vendor/lib/libaudioalsa.so
 vendor/lib/libhwdaphal.so
+vendor/lib/libldacBT_abr.so|383e748e8aba68788d0cddcdee382776d45f746f
+vendor/lib/libldacBT_enc.so|e38bc3085be5c9795cf774e86b380e3d0dfb2d4b
 vendor/lib/soundfx/libqcbassboost.so
 vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
