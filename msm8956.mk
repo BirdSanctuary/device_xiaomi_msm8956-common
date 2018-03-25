@@ -78,9 +78,12 @@ PRODUCT_COPY_FILES += \
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
+    android.hardware.audio@2.0-service \
     android.hardware.audio.effect@2.0-impl \
+    android.hardware.audio.effect@2.0-service \
     android.hardware.broadcastradio@1.0-impl \
     android.hardware.soundtrigger@2.0-impl \
+    android.hardware.soundtrigger@2.0-service \
     audio.a2dp.default \
     audio.primary.msm8952 \
     audio.r_submix.default \
@@ -112,13 +115,20 @@ PRODUCT_COPY_FILES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
+    android.hardware.bluetooth@1.0-service \
     libbt-vendor
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.device@3.2-impl \
     android.hardware.camera.provider@2.4-impl \
-    Snap
+    android.hardware.camera.provider@2.4-service \
+    camera.device@3.2-impl \
+    camera.msm8952 \
+    libqomx_core \
+    libmm-qcamera \
+    Snap \
+    vendor.qti.hardware.camera.device@1.0 \
+    vendor.qti.hardware.camera.device@1.0_vendor
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
@@ -136,18 +146,27 @@ PRODUCT_PACKAGES += \
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service
 
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.memtrack@1.0-impl \
+    android.hardware.memtrack@1.0-service \
     copybit.msm8952 \
     gralloc.msm8952 \
     hwcomposer.msm8952 \
-    memtrack.msm8952
+    memtrack.msm8952 \
+    libdisplayconfig \
+    liboverlay \
+    libqdMetaData.system \
+    libgenlock \
+    vendor.display.config@1.0 \
+    vendor.display.config@1.0_vendor
 
 # Doze mode
 #PRODUCT_PACKAGES += \
@@ -159,8 +178,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1-service \
-    fingerprintd
+    android.hardware.biometrics.fingerprint@2.0-service
 
 # FM
 PRODUCT_PACKAGES += \
@@ -173,7 +191,8 @@ PRODUCT_PACKAGES += \
 
 # Gatekeeper HAL
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
 
 # GNSS HAL
 PRODUCT_PACKAGES += \
@@ -181,8 +200,11 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0-impl-qti \
     gps.msm8952 \
-    libcurl
+    libcurl \
+    libgnss \
+    libgnsspps
 
 PRODUCT_PACKAGES += \
     flp.conf \
@@ -193,6 +215,9 @@ PRODUCT_PACKAGES += \
     xtwifi.conf
 
 # HIDL
+PRODUCT_PACKAGES += \
+    android.hidl.manager@1.0
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
 
@@ -217,12 +242,14 @@ PRODUCT_COPY_FILES += \
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service
 
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8952 \
-    android.hardware.light@2.0-impl
+    android.hardware.light@2.0-impl \
+    android.hardware.light@2.0-service
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -234,6 +261,12 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+
+# Netutils
+PRODUCT_PACKAGES += \
+    netutils-wrapper-1.0 \
+    android.system.net.netd@1.0 \
+    libandroid_net
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -251,8 +284,7 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-impl \
-    power.msm8952
+    android.hardware.power@1.0-service-qti
 
 # Qualcomm dependencies
 PRODUCT_PACKAGES += \
@@ -275,13 +307,21 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
+# RIL
+PRODUCT_PACKAGES += \
+    telephony-ext
+
+PRODUCT_BOOT_JARS += \
+    telephony-ext
+
 # Seccomp policy
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp_policy/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl
+    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-service
 
 # WCNSS
 PRODUCT_COPY_FILES += \
@@ -295,7 +335,8 @@ PRODUCT_PACKAGES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
@@ -303,11 +344,14 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service \
+    libcld80211 \
     libqsap_sdk \
     libQWiFiSoftApCfg \
     libwpa_client \
     wificond \
     hostapd \
+    wificond \
     wpa_supplicant \
     wpa_supplicant.conf
 
