@@ -12,7 +12,7 @@
 -->
 <resources>
 
-    <!-- Config to use FM without Headset, default disabled --> 
+    <!-- Config to use FM without Headset, default disabled -->
     <bool name="config_enableWirelessFM" translatable="false">true</bool>
 
 </resources>
