@@ -95,6 +95,9 @@ on boot
     # set vibrator intensity to 50%
     write /sys/class/timed_output/vibrator/vtg_level 1777
 
+    # Disable touchboost
+    write /sys/module/msm_performance/parameters/touchboost 0
+
 service wcnss-service /system/bin/wcnss_service
     class main
     user system
