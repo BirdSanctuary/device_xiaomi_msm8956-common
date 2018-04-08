@@ -59,9 +59,6 @@ persist.data.netmgrd.qos.enable=true
 persist.data.mode=concurrent
 persist.data.iwlan.enable=true
 
-# Flag to reschedule the services during app launch.
-ro.vendor.qti.am.reschedule_service=true
-
 # fling_velocity
 ro.min.fling_velocity=160
 ro.max.fling_velocity=20000
