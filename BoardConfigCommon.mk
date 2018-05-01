@@ -109,12 +109,6 @@ TARGET_FLASHLIGHT_CURRENT_VALUE1 := 78
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
-# CMHW
-BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS += \
-    hardware/cyanogen/cmhw \
-    $(VENDOR_PATH)/cmhw
-
 # CNE
 BOARD_USES_QCNE := true
 
@@ -200,7 +194,6 @@ TARGET_SYSTEM_PROP += $(VENDOR_PATH)/system.prop
 
 # Qualcomm
 BOARD_USES_QCOM_HARDWARE := true
-TARGET_USE_SDCLANG := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/etc/fstab.qcom
