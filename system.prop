@@ -33,9 +33,6 @@ ro.btconfig.chip=WCN3680
 ro.qualcomm.bt.hci_transport=smd
 persist.bt.enableAptXHD=true
 
-# Enable B-service aging propagation on memory pressure.
-ro.vendor.qti.sys.fw.bservice_enable=true
-
 # Camera
 media.camera.ts.monotonic=1
 persist.camera.HAL3.enabled=1
@@ -58,9 +55,6 @@ ro.use_data_netmgrd=true
 persist.data.netmgrd.qos.enable=true
 persist.data.mode=concurrent
 persist.data.iwlan.enable=true
-
-# Delayed restart
-ro.am.reschedule_service=true
 
 # fling_velocity
 ro.min.fling_velocity=160
