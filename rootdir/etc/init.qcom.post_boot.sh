@@ -219,3 +219,6 @@ echo   1 > /proc/sys/kernel/sched_enable_thread_grouping
 misc_link=$(ls -l /dev/block/bootdevice/by-name/misc)
 real_path=${misc_link##*>}
 setprop persist.vendor.mmi.misc_dev_path $real_path
+
+# Set BFQ as default io-schedular after boot
+setprop sys.io.scheduler "bfq"
