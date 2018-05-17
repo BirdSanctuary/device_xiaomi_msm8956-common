@@ -569,13 +569,6 @@ service netmgrd /system/vendor/bin/netmgrd
     group root wifi wakelock radio inet oem_2901
     writepid /dev/cpuset/system-background/tasks
 
-service ipacm-diag /system/vendor/bin/ipacm-diag
-    class main
-    user radio
-    socket ipacm_log_file dgram 660 radio radio
-    group radio diag oem_2901
-    writepid /dev/cpuset/system-background/tasks
-
 service ipacm /system/vendor/bin/ipacm
     class main
     user radio
