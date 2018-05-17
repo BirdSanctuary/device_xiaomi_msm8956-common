@@ -50,7 +50,6 @@ echo 70 > /sys/module/process_reclaim/parameters/pressure_max
 echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
 echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
 
-
 #Set Low memory killer minfree parameters
 # 64 bit up to 2GB with use 14K, and above 2GB will use 18K
 #
