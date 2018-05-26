@@ -353,4 +353,7 @@
     <bool name="config_proximityCheckOnWake">true</bool>
     <bool name="config_proximityCheckOnWakeEnabledByDefault">true</bool>
 
+    <!-- button brightness -->
+    <bool name="config_button_brightness_support">true</bool>
+
 </resources>
