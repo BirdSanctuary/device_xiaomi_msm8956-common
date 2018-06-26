@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2017-2018 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,8 +30,6 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 TARGET_BOOTANIMATION_HALF_RES := true
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
-
-#$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -230,20 +228,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
-
-# HWUI
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.texture_cache_size=96 \
-    ro.hwui.layer_cache_size=64 \
-    ro.hwui.r_buffer_cache_size=12 \
-    ro.hwui.path_cache_size=39 \
-    ro.hwui.gradient_cache_size=1 \
-    ro.hwui.drop_shadow_cache_size=7 \
-    ro.hwui.texture_cache_flushrate=0.4 \
-    ro.hwui.text_small_cache_width=2048 \
-    ro.hwui.text_small_cache_height=2048 \
-    ro.hwui.text_large_cache_width=3072 \
-    ro.hwui.text_large_cache_height=2048
 
 # IPA Manager
 PRODUCT_PACKAGES += \
