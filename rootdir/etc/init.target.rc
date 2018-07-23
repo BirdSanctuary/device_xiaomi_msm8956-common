@@ -53,7 +53,7 @@ on post-fs-data
 mkdir /data/vendor/camera 0770 camera camera
 
 #start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
+service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
@@ -97,7 +97,7 @@ on boot
     # Disable touchboost
     write /sys/module/msm_performance/parameters/touchboost 0
 
-service wcnss-service /system/bin/wcnss_service
+service wcnss-service /vendor/bin/wcnss_service
     class main
     user system
     group system wifi radio
