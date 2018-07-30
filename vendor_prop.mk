@@ -56,10 +56,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.HAL3.enabled=1 \
     persist.vendor.qti.telephony.vt_cam_interface=1
 
-# CNE/DPM
+# CNE
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.cne.feature=1 \
-    persist.dpm.feature=5
+    persist.cne.feature=1
 
 # Dex2oat optimisation
 PRODUCT_PROPERTY_OVERRIDES += \
