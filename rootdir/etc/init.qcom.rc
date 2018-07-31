@@ -241,6 +241,7 @@ on boot
 
 on post-fs
     start qseecomd
+    start acdbsetup
 
 # msm specific files that need to be created on /data
 on post-fs-data
@@ -609,6 +610,10 @@ service qcom-sh /vendor/bin/init.qcom.sh
 service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
     class late_start
     user root
+    disabled
+    oneshot
+
+service acdbsetup /vendor/bin/init.acdb.sh
     disabled
     oneshot
 
