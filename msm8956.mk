@@ -308,7 +308,6 @@ PRODUCT_PACKAGES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
-    init.acdb.sh \
     init.qcom.sh \
     init.qcom.post_boot.sh
 
