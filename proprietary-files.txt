@@ -241,16 +241,18 @@ etc/firmware/a530_pm4.fw:vendor/firmware/a530_pm4.fw
 vendor/lib64/hw/keystore.msm8952.so
 
 # Media
+lib/libaptX_encoder.so
+lib/libaptXHD_encoder.so
 lib/libOmxVpp.so:vendor/lib/libOmxVpp.so
 lib/libmmosal.so:vendor/lib/libmmosal.so
 lib/libvpplibrary.so:vendor/lib/libvpplibrary.so
+lib64/libaptX_encoder.so
+lib64/libaptXHD_encoder.so
 lib64/libOmxVpp.so:vendor/lib64/libOmxVpp.so
 lib64/libmmosal.so:vendor/lib64/libmmosal.so
 lib64/libvpplibrary.so:vendor/lib64/libvpplibrary.so
 vendor/lib/libAlacSwDec.so
 vendor/lib/libApeSwDec.so
-vendor/lib/libaptX_encoder.so
-vendor/lib/libaptXHD_encoder.so
 vendor/lib/libI420colorconvert.so
 vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxAlacDec.so
@@ -268,8 +270,6 @@ vendor/lib/libmmsw_opencl.so
 vendor/lib/libmmsw_platform.so
 vendor/lib64/libAlacSwDec.so
 vendor/lib64/libApeSwDec.so
-vendor/lib64/libaptX_encoder.so
-vendor/lib64/libaptXHD_encoder.so
 vendor/lib64/libI420colorconvert.so
 vendor/lib64/libOmxAacDec.so
 vendor/lib64/libOmxAlacDec.so
