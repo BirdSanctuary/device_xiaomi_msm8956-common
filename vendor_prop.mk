@@ -109,8 +109,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.msm8956hw=1 \
     mm.enable.smoothstreaming=true \
     mmp.enable.3g2=true \
-    media.aac_51_output_enabled=true \
-    persist.media.treble_omx=false
+    media.aac_51_output_enabled=true
 
 # NITZ
 PRODUCT_PROPERTY_OVERRIDES += \
