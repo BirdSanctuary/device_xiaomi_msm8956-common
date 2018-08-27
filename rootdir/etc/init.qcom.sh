@@ -67,11 +67,6 @@ if [ ! -f /firmware/verinfo/ver_info.txt -o "$prev_version_info" != "$cur_versio
     chown radio.radio /data/vendor/radio/ver_info.txt
 fi
 
-if [ -f /vendor/etc/mbn_ota.txt ] && [ ! -f /data/misc/radio/modem_config/mbn_ota.txt ]; then
-    cp /vendor/etc/mbn_ota.txt /data/vendor/radio/modem_config
-    chown radio.radio /data/vendor/radio/modem_config/mbn_ota.txt
-fi
-
 echo 1 > /data/misc/radio/copy_complete
 echo 1 > /data/vendor/radio/copy_complete
 echo 1 > /data/vendor/radio/db_check_done
