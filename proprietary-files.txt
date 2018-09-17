@@ -50,6 +50,22 @@ vendor/bin/wcnss_filter
 vendor/lib/libbtnv.so
 vendor/lib64/libbtnv.so
 
+# Camera
+vendor/lib/libchromaflash.so
+vendor/lib/libllvd_smore.so
+vendor/lib/libllvd_sw_tnr.so
+vendor/lib/libmmcamera_chromaflash_lib.so
+vendor/lib/libmmcamera_llvd.so
+vendor/lib/libmmcamera_optizoom_lib.so
+vendor/lib/libmmcamera_stillmore_lib.so
+vendor/lib/libmmcamera_sw_tnr.so
+vendor/lib/libmmcamera_trueportrait_lib.so
+vendor/lib/libmmcamera_ubifocus_lib.so
+vendor/lib/liboptizoom.so
+vendor/lib/libseemore.so
+vendor/lib/libtrueportrait.so
+vendor/lib/libubifocus.so
+
 # Charger
 vendor/bin/hvdcp_opti
 
