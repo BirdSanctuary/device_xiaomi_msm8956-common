@@ -4,8 +4,6 @@ EXTRA_VENDOR_LIBRARIES := \
     android.hardware.configstore@1.0 \
     android.hardware.configstore-utils \
     android.hardware.vibrator@1.0 \
-    android.hidl.base@1.0 \
-    android.hidl.manager@1.0 \
     libhardware_legacy \
     libbinder \
     libui
